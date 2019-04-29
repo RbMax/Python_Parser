@@ -77,7 +77,8 @@ def write_data_base(data):
 def main():
     start = datetime.now()
 
-    url = 'https://www.bazaraki.com/real-estate/houses-and-villas-sale/'
+    #url = 'https://www.bazaraki.com/real-estate/houses-and-villas-sale/'
+    url = 'https://www.bazaraki.com/real-estate/land-and-plot/pafos-district-paphos/'
     all_links = get_all_links(get_html(url))
     from pprint import pprint
     pprint(all_links)
