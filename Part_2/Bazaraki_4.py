@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 from datetime import datetime
+import pandas as pd
+
+
 
 
 def get_html(url):
@@ -42,18 +45,9 @@ def get_page_data(html):
         client_title = soup.find('div', class_='announcement-content-header').find('h1', class_="title-announcement").text.strip()
     except:
         client_title = ''
-    #find('div', class_='announcement-content-header').
-    # except:
-    # client_id = 'no id'
-
-    # try:
-    #     price = soup.find('span', id='show-post-render-app').text.strip()
-    # except:
-    #     price = ''
 
     data = {
         'client_id': client_id,
-
         'client_price': client_price,
         'client_title': client_title,
     }
@@ -73,6 +67,13 @@ def write_csv(data):
         print(data['client_id'], 'parsed')
 
 
+def write_data_base(data):
+
+        b = pd.Series(data)
+        return b
+
+
+
 def main():
     start = datetime.now()
 
@@ -88,10 +89,12 @@ def main():
 
         link = all_links[i]  # получаю каждую отдельную ссылку из списка
         html = get_html(link)  # первожу этот тип данных в текст
-        data = get_page_data(html)  # вытаскиваю id
-        write_csv(data)  # пишу в файл
+        data = get_page_data(html)  # вытаскиваю данные
+        #write_csv(data)  # пишу в файл
         print(i)
+        print(write_data_base(data))
         i += 1
+
 
     end = datetime.now()
 
